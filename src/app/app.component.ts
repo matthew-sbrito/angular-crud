@@ -1,4 +1,3 @@
-import { ThemeService } from './services/theme.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,11 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private themeService: ThemeService) { }
+  constructor() { }
 
   ngOnInit(): void { }
 
-  get theme() {
-    return this.themeService.theme;
-  }
 }

@@ -1,7 +1,9 @@
-import { Product } from './../../../models/product';
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from 'src/app/services/product.service';
+import { Router } from '@angular/router';
+
+import { ProductService } from '@services/product.service';
+import { Product } from '@models/product';
+
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 

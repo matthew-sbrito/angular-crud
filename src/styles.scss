@@ -1,4 +1,5 @@
-@import "/src/app/themes/styles.scss";
+@import "./app/themes/dark";
+@import "./app/themes/light";
 
 @font-face {
   font-family: "The History Demo";
@@ -17,4 +18,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   vertical-align: middle;
 }
 
+[button-theme],
+.button-theme {
+  background-color: var(--background-primary) !important;
+  color: #fff;
+}
 

@@ -1,6 +1,9 @@
 .container {
   .sidenav {
     width: 210px;
+    transition: all ease-in-out 500ms;
+    background-color: var(--background-primary);
+    
     a {
       color: #fff;
     }

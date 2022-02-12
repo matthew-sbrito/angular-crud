@@ -1,9 +1,11 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { ProductService } from '@services/product.service';
+import { Product } from '@models/product';
+
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { ProductService } from 'src/app/services/product.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from './../../../models/product';
-import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-product-update',

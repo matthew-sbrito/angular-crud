@@ -1,7 +1,8 @@
-import { Router } from '@angular/router';
-import { HeaderData } from './../../../services/header-title/header-data.model';
-import { HeaderTitleService } from './../../../services/header-title/header-title.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { HeaderData } from '@services/header-title/header-data.model';
+import { HeaderTitleService } from '@services/header-title/header-title.service';
 
 @Component({
   selector: 'app-nav',

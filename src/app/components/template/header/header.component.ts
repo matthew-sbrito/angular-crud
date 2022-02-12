@@ -1,7 +1,8 @@
-import { ThemeService } from './../../../services/theme.service';
-import { HeaderData } from './../../../services/header-title/header-data.model';
-import { Component, Input, OnInit } from '@angular/core';
-import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
+import { Component, OnInit } from '@angular/core';
+
+import { ThemeService } from '@services/theme.service';
+import { HeaderData } from '@services/header-title/header-data.model';
+import { HeaderTitleService } from '@services/header-title/header-title.service';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +20,6 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleTheme(): void {
-    console.log('asda');
     this.themeService.toggleTheme();
   }
 

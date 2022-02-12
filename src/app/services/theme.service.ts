@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -8,19 +9,8 @@ export class ThemeService {
 
   private _theme = new BehaviorSubject<string>(this.currentTheme());
 
-  constructor() { }
-
-  currentTheme(): string {
-    return localStorage.getItem("theme") ?? "light";
-  }
-
-  toggleTheme(): void {
-    console.log('a');
-    this.theme = this.isDark() ? 'light' : 'dark';
-  }
-
-  isDark(): boolean {
-    return this.theme === 'dark';
+  constructor(@Inject(DOCUMENT) private document: Document) {
+    this.setThemeBody();
   }
 
   get theme(): string {
@@ -28,7 +18,31 @@ export class ThemeService {
   }
 
   set theme(theme: string) {
+    this.removeThemeBody();
+
     localStorage.setItem("theme", theme);
     this._theme.next(theme);
+
+    this.setThemeBody();
+  }
+
+  toggleTheme(): void {
+    this.theme = this.isDark() ? 'light' : 'dark';
+  }
+
+  isDark(): boolean {
+    return this.theme === 'dark';
+  }
+
+  private currentTheme(): string {
+    return localStorage.getItem("theme") ?? "light";
+  }
+
+  private setThemeBody() {
+    this.document.body.classList.add(this.theme);
+  }
+
+  private removeThemeBody() {
+    this.document.body.classList.remove(this.theme);
   }
 }

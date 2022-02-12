@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 1px 4px 4px -2px rgba(0, 0, 0, .5);
+  box-shadow: 1px 4px 4px -2px rgba(0, 0, 0, 0.5);
 
   .main-info {
     display: flex;
@@ -28,19 +28,33 @@
       padding-right: 10px;
     }
   }
+  .logo-btn {
+    height: 100%;
+    background-color: var(--background-primary);
+    margin-left: -12px;
+    width: 206px;
+    transition: all ease-in-out 500ms;
 
-  #logo {
-    display: flex;
-    height: 100px;
-    justify-content: center;
-    align-items: center;
-    margin: 10px 0 0 0;
-    font-size: 2.5rem;
-    width: 200px;
-    cursor: pointer;
-    font-family: "The History Demo", sans-serif;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    user-select: none;
+    #logo {
+      display: flex;
+      height: 100px;
+      justify-content: center;
+      align-items: center;
+      margin: 10px 0 0 0;
+      font-size: 2.5rem;
+      cursor: pointer;
+      font-family: "The History Demo", sans-serif;
+      background: var(--logo-color);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      user-select: none;
+    }
   }
+
+
+
+  // .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  //   background-color: #49c5b6;
+  // }
 }
+

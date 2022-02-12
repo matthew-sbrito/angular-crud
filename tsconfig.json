@@ -21,7 +21,16 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@views/*"      : ["./src/app/views/*"],
+      "@models/*"     : ["./src/app/models/*"],
+      "@services/*"   : ["./src/app/services/*"],
+      "@template/*"   : ["./src/app/components/template/*"],
+      "@components/*" : ["./src/app/components/*"],
+      "@product/*"    : ["./src/app/components/product/*"],
+    }
+
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -29,4 +38,6 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   }
+
+
 }

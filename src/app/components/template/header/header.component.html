@@ -1,9 +1,7 @@
 <mat-toolbar class="header">
   <section class="main-info">
     <span class="logo-btn">
-      <a id="logo" routerLink="/home">
-        Matheus Brito
-      </a>
+      <a id="logo" routerLink="/home"> Matheus Brito </a>
     </span>
     <span class="title-group">
       <a routerLink="{{ headerData.link }}">
@@ -15,6 +13,9 @@
     </span>
   </section>
   <section class="switch">
-    <mat-slide-toggle (change)="toggleTheme()"> </mat-slide-toggle>
+    <app-toggle-slide
+      (change)="toggleTheme()"
+      [checked]="isDark()"
+    ></app-toggle-slide>
   </section>
 </mat-toolbar>

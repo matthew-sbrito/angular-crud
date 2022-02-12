@@ -21,21 +21,22 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/template/header/header.component';
-import { FooterComponent } from './components/template/footer/footer.component';
-import { NavComponent } from './components/template/nav/nav.component';
-import { HomeComponent } from './views/home/home.component';
-import { CrudComponent } from './views/product/crud/crud.component';
-import { ProductCreateComponent } from './components/product/product-create/product-create.component';
-import { ProductReadComponent } from './components/product/product-read/product-read.component';
-import { ProductRead2Component } from './components/product/product-read2/product-read2.component';
-import { ProductUpdateComponent } from './components/product/product-update/product-update.component';
+import { HeaderComponent } from '@template/header/header.component';
+import { FooterComponent } from '@template/footer/footer.component';
+import { NavComponent } from '@template/nav/nav.component';
+import { HomeComponent } from '@views/home/home.component';
+import { CrudComponent } from '@views/product/crud/crud.component';
+import { ProductCreateComponent } from '@product/product-create/product-create.component';
+import { ProductReadComponent } from '@product/product-read/product-read.component';
+import { ProductRead2Component } from '@product/product-read2/product-read2.component';
+import { ProductUpdateComponent } from '@product/product-update/product-update.component';
 
 import locale from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { ToggleSlideComponent } from './components/template/toggle-slide/toggle-slide.component';
 
 registerLocaleData(locale);
 
@@ -51,6 +52,7 @@ registerLocaleData(locale);
     ProductReadComponent,
     ProductRead2Component,
     ProductUpdateComponent,
+    ToggleSlideComponent,
   ],
   imports: [
     BrowserModule,

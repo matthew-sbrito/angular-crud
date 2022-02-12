@@ -1,0 +1,20 @@
+<mat-toolbar class="header">
+  <section class="main-info">
+    <span class="logo-btn">
+      <a id="logo" routerLink="/home">
+        Matheus Brito
+      </a>
+    </span>
+    <span class="title-group">
+      <a routerLink="{{ headerData.link }}">
+        <i class="material-icons">
+          {{ headerData.icon }}
+        </i>
+        {{ headerData.label }}
+      </a>
+    </span>
+  </section>
+  <section class="switch">
+    <mat-slide-toggle (change)="toggleTheme()"> </mat-slide-toggle>
+  </section>
+</mat-toolbar>

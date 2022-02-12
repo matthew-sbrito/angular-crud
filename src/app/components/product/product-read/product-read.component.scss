@@ -1,0 +1,22 @@
+table {
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+a.edit {
+  color: #d9cd26;
+}
+
+a.edit i {
+  margin-right: 10px;
+}
+
+.delete {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: #e35e6b;
+}

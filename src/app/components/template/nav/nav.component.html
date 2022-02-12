@@ -1,0 +1,17 @@
+<mat-sidenav-container class="container">
+  <mat-sidenav class="sidenav" mode="side" opened fixedInViewport="true" fixedTopGap="64">
+    <mat-nav-list class="nav-list">
+      <article class="nav-item" *ngFor="let itemList of headerList">
+        <a (click)="navigate(itemList)" mat-list-item >
+          <i class="material-icons">
+            {{ itemList.icon }}
+          </i>
+          {{ itemList.label }}
+        </a>
+      </article>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

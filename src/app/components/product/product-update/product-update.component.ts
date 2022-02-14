@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ProductService } from '@services/product.service';
+import { ProductService } from '@services/product/product.service';
 import { Product } from '@models/product';
 
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -36,7 +36,7 @@ export class ProductUpdateComponent implements OnInit {
         next: (product: Product) => {
           this.product = product;
         },
-        error: (error) => {
+        error: (err: Error) => {
           this.toastr.error('Erro ao carregar produto!');
           this.router.navigate(['/products']);
         },
@@ -49,12 +49,12 @@ export class ProductUpdateComponent implements OnInit {
     this.productService
       .update(this.product)
       .subscribe({
-        next: (product) => {
+        next: (product: Product) => {
           this.product = product;
           this.toastr.success('Produto atualizado com sucesso!');
           this.router.navigate(['/products']);
         },
-        error: (error) => this.toastr.error('Erro ao atualizar produto!'),
+        error: (err: Error) => this.toastr.error('Erro ao atualizar produto!'),
       })
       .add(() => this.spinner.hide());
   }

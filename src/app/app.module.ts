@@ -27,6 +27,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from '@template/header/header.component';
 import { FooterComponent } from '@template/footer/footer.component';
 import { NavComponent } from '@template/nav/nav.component';
+import { ToggleSlideComponent } from '@template/toggle-slide/toggle-slide.component';
 import { HomeComponent } from '@views/home/home.component';
 import { CrudComponent } from '@views/product/crud/crud.component';
 import { ProductCreateComponent } from '@product/product-create/product-create.component';
@@ -36,7 +37,6 @@ import { ProductUpdateComponent } from '@product/product-update/product-update.c
 
 import locale from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
-import { ToggleSlideComponent } from './components/template/toggle-slide/toggle-slide.component';
 
 registerLocaleData(locale);
 

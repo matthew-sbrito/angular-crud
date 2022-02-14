@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ProductService } from '@services/product.service';
+import { ProductService } from '@services/product/product.service';
 import { Product } from '@models/product';
 
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -76,9 +76,9 @@ export class ProductReadComponent implements OnInit {
       reverseButtons: true,
     }
 
-    const confirmed = await this.customSwal.fire(options);
+    const authorization = await this.customSwal.fire(options);
 
-    if (confirmed.isConfirmed) {
+    if (authorization.isConfirmed) {
       this.destroy(product);
     }
   }

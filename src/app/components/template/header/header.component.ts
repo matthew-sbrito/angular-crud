@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ThemeService } from '@services/theme.service';
+import { ThemeService } from '@services/theme/theme.service';
 import { HeaderData } from '@services/header-title/header-data.model';
 import { HeaderTitleService } from '@services/header-title/header-title.service';
+import { Theme } from '@services/theme/theme.model';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +21,8 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleTheme(): void {
-    this.themeService.toggleTheme();
+    const theme = this.isDark() ? 'light' : 'dark' ;
+    this.themeService.toggleTheme({ title: theme });
   }
 
   isDark() {

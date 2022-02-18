@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '@models/product';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
-  _url = "http://localhost:3001/products";
+  _url = `${environment._api}/products`;
 
   find(): Observable<Product[]> {
     return this.httpClient.get<Product[]>(this._url);

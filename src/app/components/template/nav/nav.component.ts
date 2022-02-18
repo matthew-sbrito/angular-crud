@@ -23,7 +23,7 @@ export class NavComponent implements OnInit {
   }
 
   navigate(headerData: HeaderData): void {
-    this.headerTitleService.headerData = headerData;
+    this.headerTitleService.update();
     this.router.navigate([headerData.link]);
   }
 }

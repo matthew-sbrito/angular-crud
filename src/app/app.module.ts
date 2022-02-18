@@ -35,6 +35,8 @@ import { ProductReadComponent } from '@product/product-read/product-read.compone
 import { ProductRead2Component } from '@product/product-read2/product-read2.component';
 import { ProductUpdateComponent } from '@product/product-update/product-update.component';
 
+import { httpInterceptorProviders } from '@auth/interceptors';
+
 import locale from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 
@@ -86,6 +88,7 @@ registerLocaleData(locale);
       provide: LOCALE_ID,
       useValue: 'pt-BR',
     },
+    httpInterceptorProviders
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -22,7 +22,7 @@ export class ThemeService {
     this.removeThemeBody();
 
     const json = JSON.stringify(theme);
-    localStorage.setItem("theme", json);
+    localStorage.setItem("NG@Theme", json);
     this._theme.next(theme);
 
     this.setThemeBody();
@@ -37,7 +37,7 @@ export class ThemeService {
   }
 
   private currentTheme(): Theme {
-    const json  = localStorage.getItem("theme");
+    const json  = localStorage.getItem("NG@Theme");
     const theme = json ? JSON.parse(json) : { title: "light" };
 
     return theme;

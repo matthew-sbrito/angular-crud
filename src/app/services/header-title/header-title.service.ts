@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Head } from 'rxjs';
 import { Location } from '@angular/common';
 
 import headerList from "./factory";
@@ -16,16 +16,12 @@ export class HeaderTitleService {
 
   constructor(private location: Location) { }
 
-  get headerData(): HeaderData {
-    return this._headerData.value;
-  }
-
   currentItemHeader(): HeaderData {
     const path = this.getPath();
 
-    return this._headerList.filter(( headerData: HeaderData ) => {
+    return this._headerList.find(( headerData: HeaderData ) => {
       return headerData.link == path
-    })[0];
+    }) ?? this._headerList[0];
   }
 
   getPath(): string {
@@ -33,6 +29,15 @@ export class HeaderTitleService {
     const path = '/' + url.split('/')[1];
 
     return path;
+  }
+
+  update(): void {
+    const currentHeaderData = this.currentItemHeader();
+    this.headerData = currentHeaderData;
+  }
+
+  get headerData(): HeaderData {
+    return this._headerData.value;
   }
 
   set headerData(headerData: HeaderData) {

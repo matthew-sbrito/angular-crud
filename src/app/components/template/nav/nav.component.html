@@ -9,6 +9,14 @@
           {{ itemList.label }}
         </a>
       </article>
+      <article class="nav-item logout">
+        <a (click)="logout()" mat-list-item >
+          <i class="material-icons">
+            logout
+          </i>
+          Sair
+        </a>
+      </article>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="content">

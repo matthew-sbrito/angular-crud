@@ -23,8 +23,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
+/** PIPES  */
 import { CapitalizePipe } from 'src/app/helpers/Capitalize.pipe';
 
+/**  LAYOUT */
+import { MainComponent } from './layout/main/main.component';
+import { AuthComponent } from 'src/app/layout/auth/auth.component';
+
+/** COMPONENTS  */
 import { AppComponent } from './app.component';
 import { HeaderComponent } from '@template/header/header.component';
 import { FooterComponent } from '@template/footer/footer.component';
@@ -32,9 +38,9 @@ import { NavComponent } from '@template/nav/nav.component';
 import { ToggleSlideComponent } from '@template/toggle-slide/toggle-slide.component';
 import { HomeComponent } from '@views/home/home.component';
 import { CrudComponent } from '@views/product/crud/crud.component';
-import { ProductCreateComponent } from '@product/product-create/product-create.component';
-import { ProductReadComponent } from '@product/product-read/product-read.component';
-import { ProductUpdateComponent } from '@product/product-update/product-update.component';
+import { ProductCreateComponent } from '@components/product/product-create/product-create.component';
+import { ProductReadComponent } from '@components/product/product-read/product-read.component';
+import { ProductUpdateComponent } from '@components/product/product-update/product-update.component';
 
 import { httpInterceptorProviders } from '@auth/interceptors';
 
@@ -55,7 +61,9 @@ registerLocaleData(locale);
     ProductReadComponent,
     ProductUpdateComponent,
     ToggleSlideComponent,
-    CapitalizePipe
+    MainComponent,
+    CapitalizePipe,
+    AuthComponent
   ],
   imports: [
     BrowserModule,

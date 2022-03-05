@@ -18,20 +18,18 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "paths": {
-      "@auth/*"       : ["./src/app/auth/*"],
-      "@views/*"      : ["./src/app/views/*"],
-      "@models/*"     : ["./src/app/models/*"],
-      "@services/*"   : ["./src/app/services/*"],
-      "@template/*"   : ["./src/app/components/template/*"],
-      "@components/*" : ["./src/app/components/*"],
-      "@product/*"    : ["./src/app/components/product/*"],
+      "@auth/*": ["./src/app/auth/*"],
+      "@components/*": ["./src/app/components/*"],
+      "@helpers/*": ["./src/app/helpers/*"],
+      "@layout/*": ["./src/app/layout/*"],
+      "@models/*": ["./src/app/models/*"],
+      "@routes/*": ["./src/app/routes/*"],
+      "@services/*": ["./src/app/services/*"],
+      "@views/*": ["./src/app/views/*"],
+      "@template/*": ["./src/app/components/template/*"]
     }
-
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -39,6 +37,4 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   }
-
-
 }

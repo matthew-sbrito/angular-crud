@@ -1,3 +1,4 @@
+import { AuthService } from './../../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -14,6 +15,7 @@ export class NavComponent implements OnInit {
   headerList: HeaderData[] = [];
 
   constructor(
+    private authService: AuthService,
     private headerTitleService: HeaderTitleService,
     private router: Router
   ) { }
@@ -25,5 +27,9 @@ export class NavComponent implements OnInit {
   navigate(headerData: HeaderData): void {
     this.headerTitleService.update();
     this.router.navigate([headerData.link]);
+  }
+
+  logout(): void {
+    this.authService.signOut();
   }
 }

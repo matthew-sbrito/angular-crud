@@ -20,11 +20,6 @@ export class ProductService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  transformData(response: any) {
-    tap(console.log);
-    return response;
-  }
-
   find(): Observable<Product[]> {
     const url = `${this._url}/index`;
     return this.httpClient

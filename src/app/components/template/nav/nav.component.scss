@@ -3,13 +3,19 @@
     width: 210px;
     transition: all ease-in-out 500ms;
     background-color: var(--background-primary);
-    
+
     a {
       color: #fff;
     }
 
     i {
       padding-right: 10px;
+    }
+
+    .nav-item.logout {
+      position: absolute;
+      width: 100%;
+      bottom: 5px;
     }
   }
 }

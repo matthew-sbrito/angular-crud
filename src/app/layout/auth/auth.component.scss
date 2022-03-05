@@ -1,0 +1,28 @@
+.container {
+  height: 100vh;
+  background: #eee;
+  background-color: var(--background-primary);
+  background: linear-gradient(to bottom, var(--background-primary) 0%, var(--background-primary) 40%, #efefef 40%, #efefef 100%);
+  position: relative;
+  text-align: center;
+  overflow: auto;
+
+  h1 {
+    color: white;
+    text-transform: uppercase;
+  }
+}
+
+.center-content {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 50px;
+  right: 50px;
+}
+
+.form-element {
+  height: 50vh;
+  padding: 20px;
+  background: white;
+}

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -9,17 +10,16 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
-
   private _authState = new BehaviorSubject<AuthState>(this.getAuthStateData());
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
   getAuthStateData(): AuthState {
     const tokenInJSON = localStorage.getItem('NG@Auth:token');
     const userInJSON = localStorage.getItem('NG@Auth:user');
 
-    const token = tokenInJSON ? JSON.parse(tokenInJSON) : "";
-    const user  = userInJSON  ? JSON.parse(userInJSON)  : null;
+    const token = tokenInJSON ? JSON.parse(tokenInJSON) : '';
+    const user = userInJSON ? JSON.parse(userInJSON) : null;
 
     return { token, user };
   }
@@ -44,6 +44,7 @@ export class AuthService {
   }
 
   signOut(): void {
-    this.authState = { user: null, token: "" }
+    this.authState = { user: null, token: '' };
+    this.router.navigate(['/auth']);
   }
 }

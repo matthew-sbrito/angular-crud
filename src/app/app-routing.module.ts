@@ -3,46 +3,40 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from './auth/auth.guard';
 
-import { HomeComponent } from './views/home/home.component';
-import { CrudComponent } from './views/product/crud/crud.component';
-import { ProductCreateComponent } from './components/product/product-create/product-create.component';
-import { ProductUpdateComponent } from './components/product/product-update/product-update.component';
-import { ProductReadComponent } from '@components/product/product-read/product-read.component';
+/** MAIN LAYOUT */
+import { MainComponent } from '@layout/main/main.component';
 
-const routes: Routes = [
+/** ROUTES */
+import { AuthRoutes } from '@routes/auth.routes';
+import { HomeRoutes } from '@routes/home.routes';
+import { ProductsRoutes } from '@routes/products.routes';
+
+const MainRoutes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
-  },
-  {
-    path: 'home',
-    component: HomeComponent,
-  },
-  {
-    path: 'products',
-    // canActivate: [AuthGuard],
-    component: CrudComponent,
+    component: MainComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
-        component: ProductReadComponent,
+        pathMatch: 'full',
+        redirectTo: 'home',
       },
-      {
-        path: 'create',
-        component: ProductCreateComponent,
-      },
-      {
-        path: 'update/:id',
-        component: ProductUpdateComponent,
-      },
+      HomeRoutes,
+      ProductsRoutes,
     ],
   },
-
+  {
+    path: '**',
+    redirectTo: '',
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(AuthRoutes),
+    RouterModule.forRoot(MainRoutes),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

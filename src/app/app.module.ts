@@ -23,6 +23,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
+import { CapitalizePipe } from 'src/app/helpers/Capitalize.pipe';
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from '@template/header/header.component';
 import { FooterComponent } from '@template/footer/footer.component';
@@ -32,7 +34,6 @@ import { HomeComponent } from '@views/home/home.component';
 import { CrudComponent } from '@views/product/crud/crud.component';
 import { ProductCreateComponent } from '@product/product-create/product-create.component';
 import { ProductReadComponent } from '@product/product-read/product-read.component';
-import { ProductRead2Component } from '@product/product-read2/product-read2.component';
 import { ProductUpdateComponent } from '@product/product-update/product-update.component';
 
 import { httpInterceptorProviders } from '@auth/interceptors';
@@ -52,9 +53,9 @@ registerLocaleData(locale);
     CrudComponent,
     ProductCreateComponent,
     ProductReadComponent,
-    ProductRead2Component,
     ProductUpdateComponent,
     ToggleSlideComponent,
+    CapitalizePipe
   ],
   imports: [
     BrowserModule,

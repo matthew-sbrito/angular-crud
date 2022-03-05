@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
-import { Theme } from './theme.model';
+import { ThemeTitle, typesTheme } from './theme.model';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -8,46 +8,41 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ThemeService {
 
-  private _theme = new BehaviorSubject<Theme>(this.currentTheme());
+  private _theme = new BehaviorSubject<ThemeTitle>(this.currentTheme());
 
   constructor(@Inject(DOCUMENT) private document: Document) {
     this.setThemeBody();
   }
 
-  get theme(): Theme {
+  get theme(): ThemeTitle {
     return this._theme.value;
   }
 
-  set theme(theme: Theme) {
+  set theme(theme: ThemeTitle) {
     this.removeThemeBody();
 
-    const json = JSON.stringify(theme);
-    localStorage.setItem("NG@Theme", json);
+    localStorage.setItem("NG@Theme", theme);
     this._theme.next(theme);
 
     this.setThemeBody();
   }
 
-  toggleTheme(theme: Theme): void {
+  toggleTheme(theme: ThemeTitle): void {
     this.theme = theme;
   }
+  
+  private currentTheme(): ThemeTitle {
+    const item  = localStorage.getItem("NG@Theme") ?? '';
+    const theme = typesTheme.find( current => current == item);
 
-  isDark(): boolean {
-    return this.theme.title === 'dark';
-  }
-
-  private currentTheme(): Theme {
-    const json  = localStorage.getItem("NG@Theme");
-    const theme = json ? JSON.parse(json) : { title: "light" };
-
-    return theme;
+    return theme ?? "light";
   }
 
   private setThemeBody() {
-    this.document.body.classList.add(this.theme.title);
+    this.document.body.classList.add(this.theme);
   }
 
   private removeThemeBody() {
-    this.document.body.classList.remove(this.theme.title);
+    this.document.body.classList.remove(this.theme);
   }
 }

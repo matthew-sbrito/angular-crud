@@ -1,3 +1,4 @@
+import { Stock } from './../../../models/stock';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -13,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./product-update.component.scss'],
 })
 export class ProductUpdateComponent implements OnInit {
-  product: Product = {} as Product;
+  product!: Product;
 
   constructor(
     private productService: ProductService,
@@ -21,9 +22,12 @@ export class ProductUpdateComponent implements OnInit {
     private route: ActivatedRoute,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.product = {} as Product;
+    this.product.stock = {} as Stock;
+
     this.handleProduct();
   }
 
@@ -34,6 +38,7 @@ export class ProductUpdateComponent implements OnInit {
       .findOne(+id)
       .subscribe({
         next: (product: Product) => {
+          console.log(product);
           this.product = product;
         },
         error: (err: Error) => {
@@ -47,7 +52,7 @@ export class ProductUpdateComponent implements OnInit {
   save(): void {
     this.spinner.show();
     this.productService
-      .update(this.product)
+      .update(this.product.getBody())
       .subscribe({
         next: (product: Product) => {
           this.product = product;

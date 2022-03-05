@@ -15,7 +15,7 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
 export class ProductReadComponent implements OnInit {
   products: Product[] = [];
 
-  displayedColumns: string[] = ['id', 'name', 'price', 'action'];
+  displayedColumns: string[] = ['id', 'name', 'price', 'quantity', 'quantityMin', 'action'];
 
   customSwal: any;
 
@@ -38,10 +38,9 @@ export class ProductReadComponent implements OnInit {
     this.spinner.show();
     this.productService
       .find()
+
       .subscribe({
-        next: (products: Product[]) => {
-          this.products = products;
-        },
+        next: (products: any) => this.products = products,
         error: (error) =>
           this.toastr.error('Erro ao carregar lista de produtos!'),
       })
@@ -64,7 +63,6 @@ export class ProductReadComponent implements OnInit {
   }
 
   async confirmDestroy(product: Product): Promise<void> {
-
     const options: SweetAlertOptions = {
       title: 'Atenção!',
       text: `Deseja apagar ${product.name}?`,
@@ -74,7 +72,7 @@ export class ProductReadComponent implements OnInit {
       showCancelButton: true,
       focusCancel: true,
       reverseButtons: true,
-    }
+    };
 
     const authorization = await this.customSwal.fire(options);
 

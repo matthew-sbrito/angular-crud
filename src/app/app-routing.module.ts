@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'products',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     component: CrudComponent,
     children: [
       {

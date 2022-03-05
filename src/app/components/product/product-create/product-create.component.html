@@ -18,6 +18,24 @@
         name="price"
       />
     </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Quantidade"
+        [(ngModel)]="product.stock.quantity"
+        type="number"
+        name="quantity"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Quantidade minima"
+        [(ngModel)]="product.stock.quantityMin"
+        type="number"
+        name="quantityMin"
+      />
+    </mat-form-field>
   </form>
   <button mat-raised-button (click)="create()" button-theme>Criar</button>
   <button mat-raised-button (click)="cancel()">Cancelar</button>

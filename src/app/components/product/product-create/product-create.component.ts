@@ -6,6 +6,7 @@ import { Product } from '@models/product';
 
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Stock } from '@models/stock';
 
 @Component({
   selector: 'app-product-create',
@@ -13,7 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./product-create.component.scss'],
 })
 export class ProductCreateComponent implements OnInit {
-  product: Product = {} as Product;
+  product!: Product;
 
   constructor(
     private productService: ProductService,
@@ -22,12 +23,15 @@ export class ProductCreateComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.product = Product.empty();
+    this.product.stock = {} as Stock;
+  }
 
   create(): void {
     this.spinner.show();
     this.productService
-      .create(this.product)
+      .create(this.product.getBody())
       .subscribe({
         next: (product: Product) => {
           this.toastr.success(`Produto com id ${product.id} criado!`);

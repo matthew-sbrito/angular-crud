@@ -1,3 +1,6 @@
-export type Theme = {
-  title: 'dark' | 'light';
-}
+export type ThemeTitle = 'light' | 'dark';
+
+export const typesTheme: ThemeTitle[] = [
+  'dark',
+  'light'
+]

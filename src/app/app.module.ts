@@ -46,6 +46,7 @@ import { httpInterceptorProviders } from '@auth/interceptors';
 
 import locale from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+import {MatSelectModule} from "@angular/material/select";
 
 registerLocaleData(locale);
 
@@ -91,6 +92,9 @@ registerLocaleData(locale);
     }),
     SweetAlert2Module.forRoot(),
     MatSlideToggleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
   ],
   providers: [
     {

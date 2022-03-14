@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,} from '@angular/core';
 
-import { ProductService } from '@services/product/product.service';
-import { Product } from '@models/product';
+import {ProductService} from '@services/product/product.service';
+import {Product} from '@models/product';
 
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
-import Swal, { SweetAlertOptions } from 'sweetalert2';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {ToastrService} from 'ngx-toastr';
+import Swal, {SweetAlertOptions} from 'sweetalert2';
+
 
 @Component({
   selector: 'app-product-read',
@@ -13,17 +14,20 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
   styleUrls: ['./product-read.component.scss'],
 })
 export class ProductReadComponent implements OnInit {
-  products: Product[] = [];
-
   displayedColumns: string[] = ['id', 'name', 'price', 'quantity', 'quantityMin', 'action'];
+  listPerPage = [1, 2, 3];
 
+  dataSource?: any;
   customSwal: any;
+
+  perPage = 3;
+  currentPage = 1;
 
   constructor(
     private productService: ProductService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.handleProducts();
@@ -34,13 +38,42 @@ export class ProductReadComponent implements OnInit {
     });
   }
 
+  get paging(): any {
+    return this.dataSource.paging;
+  }
+
+  page(page: string): void {
+    switch (page) {
+      case 'next':
+        this.currentPage = this.currentPage + 1;
+        break
+      case 'previous':
+        this.currentPage = this.currentPage - 1;
+        break;
+      case 'first':
+        this.currentPage = 1;
+        break
+      case 'last':
+        this.currentPage = this.paging.totalPages;
+    }
+    this.handleProducts()
+  }
+
+  changePage(): void {
+    this.currentPage = 1;
+    this.handleProducts()
+  }
+
   handleProducts(): void {
     this.spinner.show();
     this.productService
-      .find()
-
+      .find(this.perPage, this.currentPage)
       .subscribe({
-        next: (products: any) => this.products = products,
+        next: (response: any) => {
+          this.dataSource  = response;
+          this.currentPage = response.paging.currentPage;
+          console.log(response)
+        },
         error: (error) =>
           this.toastr.error('Erro ao carregar lista de produtos!'),
       })

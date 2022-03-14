@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { Product } from '@models/product';
@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 
 type ResponseFind = {
   products: Product[];
+  paging: any;
 };
 
 @Injectable({
@@ -14,17 +15,24 @@ type ResponseFind = {
 export class ProductService {
   constructor(private httpClient: HttpClient) {}
 
-  _url = `${environment._api}/produto`;
+  _url = `${environment._api}/product`;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  find(): Observable<Product[]> {
+  find(limit: number = 10, page: number = 1): Observable<Product[]> {
     const url = `${this._url}/index`;
+    const params = new HttpParams()
+      .set("limit", limit)
+      .set("page", page);
+
     return this.httpClient
-      .get<ResponseFind>(url)
-      .pipe(map( data => Product.streamList(data.products)));
+      .get<any>(url, { params })
+      .pipe(map( data => {
+        data.products = Product.streamList(data.products)
+        return data;
+      }));
   }
 
   findOne(id: number): Observable<Product> {

@@ -15,11 +15,12 @@ export class Product {
   }
 
   static fromAPI(data: any) {
-    const stock = Stock.fromAPI(data.estoque);
-    return new Product(data.nome, data.preco, stock, data.id);
+    const stock = Stock.fromAPI(data.stock);
+    return new Product(data.name, data.price, stock, data.id);
   }
 
   static streamList(data: any[]) {
+    console.log(data)
     return data.map((product) => this.fromAPI(product));
   }
 

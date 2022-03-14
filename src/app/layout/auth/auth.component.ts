@@ -1,10 +1,13 @@
-import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Component, ComponentFactoryResolver,
+  ElementRef,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import { AuthService } from '@auth/auth.service';
 import { ThemeService } from '@services/theme/theme.service';
-import { SharedService } from './shared.service';
 
 @Component({
   selector: 'app-auth',
@@ -13,21 +16,35 @@ import { SharedService } from './shared.service';
 })
 export class AuthComponent implements OnInit {
 
+  @ViewChild('innerComponent') innerComponent?: ElementRef<Component>;
+  title: string = '';
+
   constructor(
     private themeService: ThemeService,
     private authService: AuthService,
-    private shared: SharedService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
     const { token } = this.authService.getAuthStateData();
 
     if(token) this.router.navigate(['/']);
+
+    this.setParamsRoute();
   }
 
-  get title(): string {
-    return this.shared.titleShared;
+
+  setParamsRoute() {
+    const data = this.route.snapshot.data;
+    const component = data['innerComponent'];
+
+    this.title = data['title'] || '';
+
+    if(component && this.innerComponent){
+      console.log(this.innerComponent.nativeElement)
+      console.log(component)
+    }
   }
 
 }

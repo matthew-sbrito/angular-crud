@@ -1,6 +1,6 @@
 import { HeaderData } from './header-data.model';
 
-const itemsNavegation: HeaderData[] = [
+const itemsNavigation: HeaderData[] = [
   {
     link: '/home',
     icon: 'home',
@@ -13,4 +13,4 @@ const itemsNavegation: HeaderData[] = [
   },
 ];
 
-export default itemsNavegation;
+export default itemsNavigation;

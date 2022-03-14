@@ -11,7 +11,7 @@ export class Stock {
   }
 
   static fromAPI(data: any) {
-    return new Stock(data.quantidade, data.quantidadeMinima, data.id);
+    return new Stock(data.quantity, data.quantityMin, data.id);
   }
 
   static empty() {

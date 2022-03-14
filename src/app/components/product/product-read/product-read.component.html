@@ -1,5 +1,5 @@
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="products">
+<div *ngIf="dataSource" class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource.products">
     <!-- Id Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>Id</th>
@@ -47,4 +47,36 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let product; columns: displayedColumns"></tr>
   </table>
+
+  <div class="paginator">
+    <mat-form-field>
+      <mat-label>Itens por página</mat-label>
+      <mat-select [(ngModel)]="perPage" (selectionChange)="changePage()">
+        <mat-option *ngFor="let page of listPerPage" [value]="page">
+          {{ page }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="icons">
+      <button (click)="page('first')">
+        <i class="material-icons"> first_page </i>
+      </button>
+      <button (click)="page('previous')">
+        <i class="material-icons"> keyboard_arrow_left </i>
+      </button>
+      <button (click)="page('next')">
+        <i class="material-icons"> keyboard_arrow_right </i>
+      </button>
+      <button (click)="page('last')">
+        <i class="material-icons"> last_page </i>
+      </button>
+    </div>
+    <span class="text-area">
+      Pág. {{ paging.currentPage }} de {{ paging.totalPages }}
+    </span>
+  </div>
+
+
 </div>
+
+

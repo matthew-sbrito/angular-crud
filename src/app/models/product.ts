@@ -28,13 +28,20 @@ export class Product {
     return new Product('', NaN, Stock.empty());
   }
 
+  get quantity() {
+    return this.stock.quantity;
+  }
+  get quantityMin() {
+    return this.stock.quantityMin;
+  }
+
   getBody(): any {
     return {
       id: this.id || null,
-      nome: this.name,
-      preco: this.price,
-      quantidade: this.stock.quantity,
-      quantidadeMinima: this.stock.quantityMin,
+      name: this.name,
+      price: this.price,
+      quantity: this.stock.quantity,
+      quantityMin: this.stock.quantityMin,
     }
   }
 }

@@ -1,5 +1,5 @@
 import { Stock } from './../../../models/stock';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ProductService } from '@services/product/product.service';
@@ -7,13 +7,16 @@ import { Product } from '@models/product';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-product-update',
   templateUrl: './product-update.component.html',
   styleUrls: ['./product-update.component.scss'],
 })
-export class ProductUpdateComponent implements OnInit {
+export class ProductUpdateComponent implements OnInit, OnDestroy {
+  currentId!: number;
+  subscription!: Subscription;
   product!: Product;
 
   constructor(
@@ -28,22 +31,26 @@ export class ProductUpdateComponent implements OnInit {
     this.product = {} as Product;
     this.product.stock = {} as Stock;
 
+    this.subscription = this.route.params.subscribe(
+      (params) => this.currentId = params['id']
+    )
+
     this.handleProduct();
   }
 
   handleProduct(): void {
-    const id = this.route.snapshot.paramMap.get('id') ?? 0;
     this.spinner.show();
     this.productService
-      .findOne(+id)
+      .findOne(this.currentId)
       .subscribe({
         next: (product: Product) => {
           console.log(product);
           this.product = product;
         },
         error: (err: Error) => {
+          console.error(err)
           this.toastr.error('Erro ao carregar produto!');
-          this.router.navigate(['/products']);
+          // this.router.navigate(['/products']);
         },
       })
       .add(() => this.spinner.hide());
@@ -66,5 +73,9 @@ export class ProductUpdateComponent implements OnInit {
 
   cancel(): void {
     this.router.navigate(['/products']);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

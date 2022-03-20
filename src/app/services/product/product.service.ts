@@ -1,12 +1,17 @@
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Product } from '@models/product';
 import { environment } from 'src/environments/environment';
+import {Paging} from "../../shared/table/table.model";
 
 type ResponseFind = {
   products: Product[];
   paging: any;
+};
+
+type ResponseFindOne = {
+  product: Product;
 };
 
 @Injectable({
@@ -21,14 +26,15 @@ export class ProductService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  find(limit: number = 10, page: number = 1): Observable<Product[]> {
+  find({ currentPage, perPage }: Paging): Observable<ResponseFind> {
+    console.log(currentPage, perPage)
     const url = `${this._url}/index`;
     const params = new HttpParams()
-      .set("limit", limit)
-      .set("page", page);
+      .set("limit", perPage)
+      .set("page", currentPage);
 
     return this.httpClient
-      .get<any>(url, { params })
+      .get<ResponseFind>(url, { params })
       .pipe(map( data => {
         data.products = Product.streamList(data.products)
         return data;
@@ -38,12 +44,12 @@ export class ProductService {
   findOne(id: number): Observable<Product> {
     const url = `${this._url}/show/${id}`;
     return this.httpClient
-      .get<Product>(url)
-      .pipe(map( data => Product.fromAPI(data)));
+      .get<ResponseFindOne>(url)
+      .pipe(map( data => Product.fromAPI(data.product)));
   }
 
   create(product: Product): Observable<Product> {
-    const url = `${this._url}/create`;
+    const url = `${this._url}/save`;
     return this.httpClient.post<Product>(url, product);
   }
 

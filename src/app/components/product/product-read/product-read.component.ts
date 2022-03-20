@@ -6,7 +6,14 @@ import {Product} from '@models/product';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {ToastrService} from 'ngx-toastr';
 import Swal, {SweetAlertOptions} from 'sweetalert2';
-
+import {
+  ActionTable,
+  DisplayedColumn,
+  EventEmitterTable,
+  Paging,
+  TableDataSource
+} from "../../../shared/table/table.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-read',
@@ -14,23 +21,59 @@ import Swal, {SweetAlertOptions} from 'sweetalert2';
   styleUrls: ['./product-read.component.scss'],
 })
 export class ProductReadComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'price', 'quantity', 'quantityMin', 'action'];
-  listPerPage = [1, 2, 3];
+  displayedColumns: DisplayedColumn[] = [
+    {
+      columnDef: 'id',
+      label: 'Código'
+    },
+    {
+      columnDef: 'name',
+      label: 'Nome'
+    },
+    {
+      columnDef: 'price',
+      label: 'Preço'
+    },
+    {
+      columnDef: 'quantity',
+      label: 'Quantidade'
+    },
+    {
+      columnDef: 'quantityMin',
+      label: 'Quantidade Minima'
+    },
+  ];
 
-  dataSource?: any;
-  customSwal: any;
+  actions: ActionTable[] = [
+    {
+      actionName: 'edit',
+      icon: 'edit',
+      color: '#d9cd26',
+    },
+    {
+      actionName: 'confirmDestroy',
+      icon: 'delete',
+      color: '#e35e6b',
+    }
+  ];
 
-  perPage = 3;
-  currentPage = 1;
+  dataSource: TableDataSource = {} as TableDataSource;
+
+  paging: Paging = {
+    perPage: 3,
+    currentPage: 1,
+    items: 0,
+    totalPages: 0
+  };
+
+  private customSwal;
 
   constructor(
     private productService: ProductService,
     private toastr: ToastrService,
-    private spinner: NgxSpinnerService
-  ) { }
-
-  ngOnInit(): void {
-    this.handleProducts();
+    private spinner: NgxSpinnerService,
+    private router: Router
+  ) {
     this.customSwal = Swal.mixin({
       customClass: {
         confirmButton: 'button-theme',
@@ -38,41 +81,23 @@ export class ProductReadComponent implements OnInit {
     });
   }
 
-  get paging(): any {
-    return this.dataSource.paging;
+  ngOnInit(): void {
+    this.handleProducts();
   }
 
-  page(page: string): void {
-    switch (page) {
-      case 'next':
-        this.currentPage = this.currentPage + 1;
-        break
-      case 'previous':
-        this.currentPage = this.currentPage - 1;
-        break;
-      case 'first':
-        this.currentPage = 1;
-        break
-      case 'last':
-        this.currentPage = this.paging.totalPages;
-    }
-    this.handleProducts()
-  }
-
-  changePage(): void {
-    this.currentPage = 1;
+  changePage(paging: Paging): void {
+    this.paging = paging;
     this.handleProducts()
   }
 
   handleProducts(): void {
     this.spinner.show();
     this.productService
-      .find(this.perPage, this.currentPage)
+      .find(this.paging)
       .subscribe({
         next: (response: any) => {
-          this.dataSource  = response;
-          this.currentPage = response.paging.currentPage;
-          console.log(response)
+          this.dataSource.items  = response.products;
+          this.dataSource.paging = response.paging;
         },
         error: (error) =>
           this.toastr.error('Erro ao carregar lista de produtos!'),
@@ -95,6 +120,11 @@ export class ProductReadComponent implements OnInit {
       .add(() => this.spinner.hide());
   }
 
+  edit(product: Product) {
+    const id = product.id;
+    this.router.navigateByUrl(`products/update/${id}`)
+  }
+
   async confirmDestroy(product: Product): Promise<void> {
     const options: SweetAlertOptions = {
       title: 'Atenção!',
@@ -111,6 +141,18 @@ export class ProductReadComponent implements OnInit {
 
     if (authorization.isConfirmed) {
       this.destroy(product);
+    }
+  }
+
+  actionClick(event: EventEmitterTable) {
+    const item = event.item;
+    switch (event.action) {
+      case 'edit':
+        return this.edit(item);
+      case 'destroy':
+        return this.confirmDestroy(item);
+      default:
+        break;
     }
   }
 }

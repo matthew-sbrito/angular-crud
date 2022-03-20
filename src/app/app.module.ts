@@ -18,7 +18,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
-import { MatTableModule } from '@angular/material/table';
+import { MatTableModule,} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -47,6 +47,7 @@ import { httpInterceptorProviders } from '@auth/interceptors';
 import locale from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import {MatSelectModule} from "@angular/material/select";
+import { TableComponent } from './shared/table/table.component';
 
 registerLocaleData(locale);
 
@@ -64,7 +65,8 @@ registerLocaleData(locale);
     ToggleSlideComponent,
     MainComponent,
     CapitalizePipe,
-    AuthComponent
+    AuthComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,

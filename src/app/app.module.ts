@@ -48,6 +48,7 @@ import locale from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import {MatSelectModule} from "@angular/material/select";
 import { TableComponent } from './shared/table/table.component';
+import {MatExpansionModule} from "@angular/material/expansion";
 
 registerLocaleData(locale);
 
@@ -68,36 +69,37 @@ registerLocaleData(locale);
     AuthComponent,
     TableComponent
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatCardModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    NgxSpinnerModule,
-    ToastrModule.forRoot({
-      timeOut: 5000,
-      positionClass: 'toast-bottom-right',
-      preventDuplicates: true,
-      progressBar: true,
-    }),
-    SweetAlert2Module.forRoot(),
-    MatSlideToggleModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatListModule,
+        MatCardModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        NgxSpinnerModule,
+        ToastrModule.forRoot({
+            timeOut: 5000,
+            positionClass: 'toast-bottom-right',
+            preventDuplicates: true,
+            progressBar: true,
+        }),
+        SweetAlert2Module.forRoot(),
+        MatSlideToggleModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatExpansionModule
+    ],
   providers: [
     {
       provide: LOCALE_ID,

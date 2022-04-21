@@ -1,6 +1,6 @@
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable} from 'rxjs';
 import { Product } from '@models/product';
 import { environment } from 'src/environments/environment';
 import {Paging} from "../../shared/table/table.model";
@@ -35,17 +35,22 @@ export class ProductService {
 
     return this.httpClient
       .get<ResponseFind>(url, { params })
-      .pipe(map( data => {
-        data.products = Product.streamList(data.products)
-        return data;
-      }));
+      .pipe(
+        map( data => {
+          data.products = Product.streamList(data.products)
+          return data;
+        }),
+        catchError( this.handleError)
+      );
   }
+
+
 
   findOne(id: number): Observable<Product> {
     const url = `${this._url}/show/${id}`;
     return this.httpClient
       .get<ResponseFindOne>(url)
-      .pipe(map( data => Product.fromAPI(data.product)));
+      .pipe(map( data => Product.fromAPI(data)));
   }
 
   create(product: Product): Observable<Product> {
@@ -63,5 +68,10 @@ export class ProductService {
     const id = product.id;
     const url = `${this._url}/delete/${id}`;
     return this.httpClient.delete(url);
+  }
+
+  private handleError(err: any, caught: Observable<any>): never {
+    console.log(err, caught)
+    throw 'Details error';
   }
 }

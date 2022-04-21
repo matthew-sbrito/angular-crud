@@ -1,0 +1,78 @@
+<div *ngIf="dataSource.items?.length" class="mat-elevation-z5">
+  <table mat-table [dataSource]="dataSource.items">
+
+<!--    <ng-container *ngFor="let column of showColumns" [matColumnDef]="column.columnDef">-->
+<!--      <th mat-header-cell *matHeaderCellDef> {{ column.label | capitalize }}</th>-->
+<!--      <td mat-cell *matCellDef="let item">{{ item[column.columnDef] }}</td>-->
+<!--    </ng-container>-->
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ headerText }}
+      </th>
+      <td *matCellDef="let item">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ item.id }}
+            </mat-panel-title>
+            <mat-panel-description>
+                {{ item.name }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <span>
+            {{ item.price | currency:'BRL' }}
+          </span>
+        </mat-expansion-panel>
+      </td>
+    </ng-container>
+
+    <ng-container *ngIf="actions.length" matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let item">
+        <button *ngFor="let action of actions"
+                (click)="eventClick(item, action.actionName)"
+                [style.color]="action.color"
+          >
+          <i class="material-icons"> {{ action.icon }} </i>
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let item; columns: displayedColumns"></tr>
+  </table>
+
+  <div class="paginator" *ngIf="dataSource.paging">
+    <div class="content">
+      <mat-form-field>
+        <mat-label>Itens por página</mat-label>
+        <mat-select [(ngModel)]="perPage" (selectionChange)="changePerPage()">
+          <mat-option *ngFor="let page of listPerPage" [value]="page">
+            {{ page }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="icons">
+        <button (click)="page('first')">
+          <i class="material-icons"> first_page </i>
+        </button>
+        <button (click)="page('previous')">
+          <i class="material-icons"> keyboard_arrow_left </i>
+        </button>
+        <button (click)="page('next')">
+          <i class="material-icons"> keyboard_arrow_right </i>
+        </button>
+        <button (click)="page('last')">
+          <i class="material-icons"> last_page </i>
+        </button>
+      </div>
+      <span class="text-area">
+      Pág. {{ paging.currentPage }} de {{ paging.totalPages }}
+    </span>
+    </div>
+  </div>
+
+
+</div>
+
+

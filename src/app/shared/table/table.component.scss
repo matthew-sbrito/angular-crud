@@ -1,0 +1,44 @@
+table {
+  width: 100%;
+}
+
+ button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.paginator {
+  width: 100%;
+  padding-top: 10px;
+
+  mat-form-field {
+    margin: 0 10px;
+  }
+
+  .content {
+    width: 98%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .icons{
+    button{
+      background: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+
+      i {
+        color: #666;
+      }
+
+    }
+  }
+
+  .text-area {
+    font-size: .8rem;
+    color: #666;
+  }
+}

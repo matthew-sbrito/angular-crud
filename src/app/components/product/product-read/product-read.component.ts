@@ -1,4 +1,4 @@
-import { Component, OnInit,} from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 
 import {ProductService} from '@services/product/product.service';
 import {Product} from '@models/product';
@@ -14,47 +14,25 @@ import {
   TableDataSource
 } from "../../../shared/table/table.model";
 import {Router} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-product-read',
   templateUrl: './product-read.component.html',
   styleUrls: ['./product-read.component.scss'],
 })
-export class ProductReadComponent implements OnInit {
+export class ProductReadComponent implements OnInit, OnDestroy {
+  subscriptions: Subscription[] = [];
   displayedColumns: DisplayedColumn[] = [
-    {
-      columnDef: 'id',
-      label: 'Código'
-    },
-    {
-      columnDef: 'name',
-      label: 'Nome'
-    },
-    {
-      columnDef: 'price',
-      label: 'Preço'
-    },
-    {
-      columnDef: 'quantity',
-      label: 'Quantidade'
-    },
-    {
-      columnDef: 'quantityMin',
-      label: 'Quantidade Minima'
-    },
+    { columnDef: 'id', label: 'Código' },
+    { columnDef: 'name', label: 'Nome' },
+    { columnDef: 'price', label: 'Preço' },
+    { columnDef: 'quantity', label: 'Quantidade' },
+    { columnDef: 'quantityMin', label: 'Quantidade Minima' },
   ];
-
   actions: ActionTable[] = [
-    {
-      actionName: 'edit',
-      icon: 'edit',
-      color: '#d9cd26',
-    },
-    {
-      actionName: 'confirmDestroy',
-      icon: 'delete',
-      color: '#e35e6b',
-    }
+    { actionName: 'edit', icon: 'edit', color: '#d9cd26' },
+    { actionName: 'confirmDestroy', icon: 'delete', color: '#e35e6b' }
   ];
 
   dataSource: TableDataSource = {} as TableDataSource;
@@ -85,6 +63,10 @@ export class ProductReadComponent implements OnInit {
     this.handleProducts();
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach( subscription => subscription.unsubscribe())
+  }
+
   changePage(paging: Paging): void {
     this.paging = paging;
     this.handleProducts()
@@ -92,7 +74,7 @@ export class ProductReadComponent implements OnInit {
 
   handleProducts(): void {
     this.spinner.show();
-    this.productService
+    const subscription = this.productService
       .find(this.paging)
       .subscribe({
         next: (response: any) => {
@@ -101,8 +83,11 @@ export class ProductReadComponent implements OnInit {
         },
         error: (error) =>
           this.toastr.error('Erro ao carregar lista de produtos!'),
-      })
-      .add(() => this.spinner.hide());
+      });
+
+    subscription.add(() => this.spinner.hide())
+
+    this.subscriptions.push(subscription)
   }
 
   destroy(product: Product): void {

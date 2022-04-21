@@ -28,7 +28,9 @@ export class ProductCreateComponent implements OnInit {
     this.product.stock = {} as Stock;
   }
 
+
   create(): void {
+
     this.spinner.show();
     this.productService
       .create(this.product.getBody())

@@ -30,7 +30,6 @@ export class ProductCreateComponent implements OnInit {
 
 
   create(): void {
-
     this.spinner.show();
     this.productService
       .create(this.product.getBody())
